@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.29)
+cmake_minimum_required(VERSION 3.20)
 
 option(TRACY_ENABLE "Enable Tracy" OFF)
 set(BUILD_SHARED_LIBS OFF)
@@ -93,13 +93,6 @@ function(Embed LIST NAME FILE)
 endfunction()
 
 # mcoreutil
-
-add_custom_command(
-    OUTPUT CmykIcm.cpp CmykIcm.hpp
-    COMMAND embed CmykIcm ${CMAKE_CURRENT_LIST_DIR}/src/util/cmyk.icm CmykIcm
-    DEPENDS embed ${CMAKE_CURRENT_LIST_DIR}/src/util/cmyk.icm
-)
-
 set(MCOREUTIL_SRC
     src/util/Bitmap.cpp
     src/util/BitmapAnim.cpp
@@ -114,6 +107,7 @@ set(MCOREUTIL_SRC
     src/util/TonemapperAgx.cpp
     src/util/TonemapperPbr.cpp
     src/util/stb_image_resize_impl.cpp
+    data/CmykIcm.cpp # 如果没有这行使用data/CmykIcm.cpp，add_custom_command不会生成data/CmykIcm.cpp
 )
 
 Embed(MCOREUTIL_SRC CmykIcm src/util/cmyk.icm)
@@ -139,7 +133,7 @@ set(MCOREIMAGE_SRC
     src/image/HeifLoader.cpp
     src/image/ImageLoader.cpp
     src/image/JpgLoader.cpp
-    src/image/JxlLoader.cpp
+    # src/image/JxlLoader.cpp
     src/image/PcxLoader.cpp
     src/image/PngLoader.cpp
     src/image/PvrLoader.cpp
@@ -160,7 +154,7 @@ target_link_libraries(mcoreimage PRIVATE
     ${EXR_LINK_LIBRARIES}
     ${HEIF_LINK_LIBRARIES}
     ${JPEG_LINK_LIBRARIES}
-    ${JXL_LINK_LIBRARIES}
+    # ${JXL_LINK_LIBRARIES}
     ${LCMS_LINK_LIBRARIES}
     ${PNG_LINK_LIBRARIES}
     ${PUGIXML_LINK_LIBRARIES}
@@ -175,7 +169,7 @@ target_include_directories(mcoreimage PRIVATE
     ${EXR_INCLUDE_DIRS}
     ${HEIF_INCLUDE_DIRS}
     ${JPEG_INCLUDE_DIRS}
-    ${JXL_INCLUDE_DIRS}
+    # ${JXL_INCLUDE_DIRS}
     ${LCMS_INCLUDE_DIRS}
     ${PNG_INCLUDE_DIRS}
     ${PUGIXML_INCLUDE_DIRS}

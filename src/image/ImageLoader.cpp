@@ -6,7 +6,7 @@
 #include "HeifLoader.hpp"
 #include "ImageLoader.hpp"
 #include "JpgLoader.hpp"
-#include "JxlLoader.hpp"
+// #include "JxlLoader.hpp"
 #include "PcxLoader.hpp"
 #include "PngLoader.hpp"
 #include "PvrLoader.hpp"
@@ -62,7 +62,7 @@ std::unique_ptr<ImageLoader> GetImageLoader( const char* filename, ToneMap::Oper
 
     if( auto loader = CheckImageLoader<PngLoader>( file ); loader ) return loader;
     if( auto loader = CheckImageLoader<JpgLoader>( file ); loader ) return loader;
-    if( auto loader = CheckImageLoader<JxlLoader>( file ); loader ) return loader;
+    // if( auto loader = CheckImageLoader<JxlLoader>( file ); loader ) return loader;
     if( auto loader = CheckImageLoader<WebpLoader>( file ); loader ) return loader;
     if( auto loader = CheckImageLoader<HeifLoader>( file, tonemap, td ); loader ) return loader;
     if( auto loader = CheckImageLoader<PvrLoader>( file ); loader ) return loader;
